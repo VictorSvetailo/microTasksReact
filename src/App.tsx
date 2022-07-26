@@ -28,6 +28,12 @@ function App() {
         {id: 6, name: 'Marlon', lastName: 'Brando', age: 75, married: false},
     ]
 
+    // Car
+    const topCars = [
+        {id: 1, manufacturer: 'BMW', model: 'm5cs', country: 'Germany'},
+        {id: 2, manufacturer: 'Mercedes', model: 'e63s', country: 'Germany'},
+        {id: 3, manufacturer: 'Audi', model: 'rs6', country: 'Germany'},
+    ]
 
 
     return (
@@ -35,6 +41,7 @@ function App() {
             <Students
                 titleData={titleData}
                 studentData={studentData}
+                topCars={topCars}
             />
             <Teachers
                 titleTeachers={titleTeachers}

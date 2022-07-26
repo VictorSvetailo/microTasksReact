@@ -30,7 +30,7 @@ export const Teachers = (props: MainTeachersType) => {
                 {
                     props.teachersData.map((t)=>{
                         return(
-                            <li><span>{t.name}</span> <span>{t.lastName}</span> <span>{t.id}</span> <span>{t.age}</span>
+                            <li key={t.id}><span>{t.name}</span> <span>{t.lastName}</span> <span>{t.id}</span> <span>{t.age}</span>
                                 <input type="checkbox" checked={t.married}/></li>
                         )
                     })
