@@ -3,9 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import {Students} from "./components/Students/Students";
 import {Teachers} from "./components/Teacher/Teachers";
+import {Button} from "./components/Button/Button";
 
 function App() {
-
     // Students
     const titleData = {title: 'This is my JOB', subtitle: 'I like React and JS'}
     const studentData = [
@@ -14,7 +14,6 @@ function App() {
         {id: 3, name: 'Alex Andrs', age: 25, skill: 'Ruby'},
         {id: 4, name: 'Mia Torreto', age: 49, skill: 'C++'},
     ]
-
     // Teachers
     const titleTeachers = {
         title: 'We are the best teachers'
@@ -27,17 +26,45 @@ function App() {
         {id: 5, name: 'Leonardo', lastName: 'DiCaprio', age: 43, married: true},
         {id: 6, name: 'Marlon', lastName: 'Brando', age: 75, married: false},
     ]
-
     // Car
     const topCars = [
         {id: 1, manufacturer: 'BMW', model: 'm5cs', country: 'Germany'},
         {id: 2, manufacturer: 'Mercedes', model: 'e63s', country: 'Germany'},
         {id: 3, manufacturer: 'Audi', model: 'rs6', country: 'Germany'},
     ]
+    // Button test Victor
+
+
+
+    // Button
+    // const Button1Foo=(subscriber: string, age: number, love: string)=>{
+    //     console.log(subscriber, age, love)
+    // }
+    // const Button2Foo=(subscriber: string, age: number, love: string)=>{
+    //     console.log(subscriber, age, love)
+    // }
+    //
+    // const Button3Foo=(stupid: string)=>{
+    //     console.log(stupid)
+    // }
+
+    const ButtonTestSuper = (name: string, power: string, age: number,)=>{
+        alert(name + power + age+ "Ну что похерелись все! Глядя на то что я творю!!!!")
+    }
 
 
     return (
+
+
         <div className="App">
+
+            <Button callBack={()=>ButtonTestSuper('Victor', "10/10", 25)} name={'Im Victor Svetailo. Just do it'}/>
+
+            {/*<Button name={'My firs Chanel #1'} callBack={()=>Button1Foo('Victor', 25, 'i love Masha')}/>*/}
+            {/*<Button name={'My firs Chanel #2'} callBack={()=>Button2Foo('Masha', 24, 'хрен его знает')}/>*/}
+            {/*<Button name={'Im stupid Button'} callBack={()=>Button3Foo('Im stupid Button very well')}/>*/}
+            {/*<Button buttonData={buttonData}/>*/}
+            {/*<Button buttonData={buttonData}/>*/}
             <Students
                 titleData={titleData}
                 studentData={studentData}
@@ -47,6 +74,7 @@ function App() {
                 titleTeachers={titleTeachers}
                 teachersData={teachersData}
             />
+
         </div>
     );
 }

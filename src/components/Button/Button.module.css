@@ -1,0 +1,21 @@
+.backgraund__button{
+    width: 200px;
+    height: 100px;
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn1{
+    color: #fff;
+    background-color: #999;
+    padding: 10px;
+}
+
+.btn2{
+    color: #fff;
+    background-color: blue;
+    padding: 10px;
+}
