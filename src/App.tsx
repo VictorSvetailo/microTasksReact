@@ -1,9 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.module.css';
+import styles from './App.module.css'
+
 import {Students} from "./components/Students/Students";
 import {Teachers} from "./components/Teacher/Teachers";
 import {Button} from "./components/Button/Button";
+import {Hook} from "./components/Hook/Hook";
+import {Filter} from "./components/Filter/Filter";
+import {FilterTest} from "./components/Filter/FilterTest";
+
 
 function App() {
     // Students
@@ -33,33 +39,18 @@ function App() {
         {id: 3, manufacturer: 'Audi', model: 'rs6', country: 'Germany'},
     ]
     // Button test Victor
-
-
-
-    // Button
-    // const Button1Foo=(subscriber: string, age: number, love: string)=>{
-    //     console.log(subscriber, age, love)
-    // }
-    // const Button2Foo=(subscriber: string, age: number, love: string)=>{
-    //     console.log(subscriber, age, love)
-    // }
-    //
-    // const Button3Foo=(stupid: string)=>{
-    //     console.log(stupid)
-    // }
-
-    const ButtonTestSuper = (name: string, power: string, age: number,)=>{
-        alert(name + power + age+ "Ну что похерелись все! Глядя на то что я творю!!!!")
+    const ButtonTestSuper = (name: string, power: string, age: number,) => {
+        console.log(name + power + age + "Ну что похерелись все! Глядя на то что я творю!!!!")
     }
+    // Filter
 
 
     return (
-
-
-        <div className="App">
-
-            <Button callBack={()=>ButtonTestSuper('Victor', "10/10", 25)} name={'Im Victor Svetailo. Just do it'}/>
-
+        <div className={styles.App}>
+            <FilterTest/>
+            <Filter/>
+            <Hook/>
+            <Button callBack={() => ButtonTestSuper('Victor', "10/10", 25)} name={'Im Victor Svetailo. Just do it'}/>
             {/*<Button name={'My firs Chanel #1'} callBack={()=>Button1Foo('Victor', 25, 'i love Masha')}/>*/}
             {/*<Button name={'My firs Chanel #2'} callBack={()=>Button2Foo('Masha', 24, 'хрен его знает')}/>*/}
             {/*<Button name={'Im stupid Button'} callBack={()=>Button3Foo('Im stupid Button very well')}/>*/}
