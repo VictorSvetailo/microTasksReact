@@ -1,23 +1,22 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.module.css';
 import styles from './App.module.css'
 
-import {Students} from "./components/Students/Students";
-import {Teachers} from "./components/Teacher/Teachers";
+import {Students} from './components/Students/Students';
+import {Teachers} from './components/Teacher/Teachers';
 
-import {Hook} from "./components/Hook/Hook";
-import {Filter} from "./components/Filter/Filter";
-import {FilterTest} from "./components/Filter/FilterTest";
-import Workout1 from "./components/Workout1/Workout1";
-import {InputButton} from "./components/InputButton/InputButton";
-import {Input} from "./components/Input/Input";
-import {ButtonNew} from "./components/ButtonNew/ButtonNew";
+import {Hook} from './components/Hook/Hook';
+import {Filter} from './components/Filter/Filter';
+import {FilterTest} from './components/Filter/FilterTest';
+import Workout1, {WorkoutDataType} from './components/Workout1/Workout1';
+import {ButtonNew} from './components/ButtonNew/ButtonNew';
+import {v1} from 'uuid';
 
 
 function Button(props: { callBack: () => void, name: string }) {
     return null;
 }
+
 
 function App() {
     // Students
@@ -48,7 +47,7 @@ function App() {
     ]
     // ButtonNew test Victor
     const ButtonTestSuper = (name: string, power: string, age: number,) => {
-        console.log(name + power + age + "Ну что похерелись все! Глядя на то что я творю!!!!")
+        console.log(name + power + age + 'Ну что похерелись все! Глядя на то что я творю!!!!')
     }
     // InputButton
     //Title InputButton
@@ -73,20 +72,26 @@ function App() {
     // single
     //input
     let [messageBT, setMessageBT] = useState([
-        {message: 'message1'},
-        {message: 'message2'},
-        {message: 'message3'},
-        {message: 'message3'},
+        {id: v1(), message: 'message1'},
+        {id: v1(), message: 'message2'},
+        {id: v1(), message: 'message3'},
+        {id: v1(), message: 'message3'},
     ])
+    // button delete
+    const removeTask =(id:string)=>{
+        let filterRemoveTask = messageBT.filter(m => m.id !== id)
+        setMessageBT(filterRemoveTask)
+    }
+
 
     let [titleBT, setTitle] = useState('')
 
-    const addMessageBT=(title: string)=>{
-        let newMessage = {message: title};
+    const addMessageBT = (title: string) => {
+        let newMessage = {id: v1(), message: title};
         setMessageBT([newMessage, ...messageBT]);
     }
     //button
-    const callBackButtonHandler =()=> {
+    const callBackButtonHandler = () => {
         addMessageBT(titleBT)
         setTitle('')
     }
@@ -101,41 +106,55 @@ function App() {
     const workout1Title = {
         title: 'My life'
     }
-    const workout1Data = [
-        {case: 'React', importance: 9, timeSpent: 1000, isDone: true},
-        {case: 'JS', importance: 9, timeSpent: 1000, isDone: true},
-        {case: 'TS', importance: 8, timeSpent: 100, isDone: true},
-        {case: 'Woman', importance: 10, timeSpent: 100000000, isDone: true},
-        {case: 'Car', importance: 7, timeSpent: 200, isDone: true},
-        {case: 'House', importance: 6, timeSpent: 2000, isDone: false},
-        {case: 'Work', importance: 10, timeSpent: 3000000, isDone: false},
-    ]
+    const [workout1Data, setWorkout1Data] = useState<Array<WorkoutDataType>>([
+        {id: v1(), case: 'React', importance: 9, timeSpent: 1000, isDone: true},
+        {id: v1(), case: 'JS', importance: 9, timeSpent: 1000, isDone: false},
+        {id: v1(), case: 'TS', importance: 8, timeSpent: 100, isDone: true},
+        {id: v1(), case: 'Woman', importance: 10, timeSpent: 100000000, isDone: false},
+        {id: v1(), case: 'Car', importance: 7, timeSpent: 200, isDone: true},
+        {id: v1(), case: 'House', importance: 6, timeSpent: 2000, isDone: false},
+        {id: v1(), case: 'Work', importance: 10, timeSpent: 3000000, isDone: false},
+    ])
+    
+    const onClickRemove= (id: string) =>{
+        let onClickRemoveFilter = workout1Data.filter(m => m.id !== id)
+        setWorkout1Data(onClickRemoveFilter)
+    }
+
+    const addMessage = (title: string) => {
+        let newMessage =
+            {id: v1(), case: title, importance: 0, timeSpent: 0, isDone: false}
+        let newMessages =[newMessage, ...workout1Data]
+        setWorkout1Data(newMessages)
+
+
+    }
+
+    // function addTask(title: string){
+    //     let newTask = {id: v1(), title: title, isDone: false};
+    //     let newTasks = [newTask, ...tasks1];
+    //     setTasks1(newTasks)
+    // }
+
+
 
 
     return (
         <div className={styles.App}>
             <ButtonNew callBackTB={callBackButtonHandler} name={'Add'}/>
-            <Input setTitle={setTitle} title={titleBT}/>
-            {
-                messageBT.map((m)=>{
-                    return(
-                        <p>
-                            {m.message}
-                        </p>
-                    )
-                })
-            }
-
+           {/*<Input removeTask={removeTask} messageBT={messageBT} setTitle={setTitle} title={titleBT}/>*/}
             {/*<InputButton inputTitle={inputTitle} inputData={message} addMessage={addMessage}/>*/}
 
             <Workout1
                 workout1Title={workout1Title}
                 workout1Data={workout1Data}
+                onClickRemove={onClickRemove}
+                addMessage={addMessage}
             />
             <FilterTest/>
             <Filter/>
             <Hook/>
-            <Button callBack={() => ButtonTestSuper('Victor', "10/10", 25)} name={'Im Victor Svetailo. Just do it'}/>
+            <Button callBack={() => ButtonTestSuper('Victor', '10/10', 25)} name={'Im Victor Svetailo. Just do it'}/>
             {/*<ButtonNew name={'My firs Chanel #1'} callBack={()=>Button1Foo('Victor', 25, 'i love Masha')}/>*/}
             {/*<ButtonNew name={'My firs Chanel #2'} callBack={()=>Button2Foo('Masha', 24, 'хрен его знает')}/>*/}
             {/*<ButtonNew name={'Im stupid ButtonNew'} callBack={()=>Button3Foo('Im stupid ButtonNew very well')}/>*/}

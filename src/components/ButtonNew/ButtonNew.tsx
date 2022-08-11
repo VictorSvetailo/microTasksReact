@@ -2,12 +2,11 @@ import React from 'react';
 
 type ButtonPropsType = {
     name: string
-    callBackTB: ()=>void
+    callBackTB: () => void
 }
 
 
 export const ButtonNew = (props: ButtonPropsType) => {
-
 
 
     const onClickButtonHandler = () => {
@@ -16,8 +15,11 @@ export const ButtonNew = (props: ButtonPropsType) => {
 
     return (
         <span>
-            <button onClick={onClickButtonHandler}>{props.name}</button>
+            <div>
+                <button onClick={onClickButtonHandler}>{props.name}</button>
+            </div>
         </span>
     );
 };
+
 

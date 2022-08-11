@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, MouseEvent, useState} from 'react';
 import styles from './Workout1.module.css'
+import {v1} from 'uuid';
 
-type Workout1Type = {
+type Workout1AllType = {
     workout1Title: Workout1TitleType
     workout1Data: Array<WorkoutDataType>
+    onClickRemove: (id: string) => void
+    addMessage: (title: string) => void
     // workoutFilter: Array<workoutFilterType>
 }
 
@@ -11,7 +14,8 @@ type Workout1TitleType = {
     title: string
 }
 
-type WorkoutDataType = {
+export type WorkoutDataType = {
+    id: string,
     case: string,
     importance: number,
     timeSpent: number,
@@ -23,7 +27,16 @@ type WorkoutDataType = {
 // }
 
 
-const Workout1 = (props: Workout1Type) => {
+const Workout1 = (props: Workout1AllType) => {
+
+    const [newMessageTitle, setNewMessageTitle] = useState('')
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewMessageTitle(e.currentTarget.value)
+    }
+    const onClickAddHandler = (e: MouseEvent<HTMLButtonElement>) => {
+        props.addMessage(newMessageTitle)
+        setNewMessageTitle('')
+    }
 
     const onclickFilterHandler = (name: string) => {
         setFilter(name)
@@ -33,43 +46,47 @@ const Workout1 = (props: Workout1Type) => {
 
 
     let workoutFilter = props.workout1Data
-    if(filter === '#1'){
-        workoutFilter = props.workout1Data.filter(m => m.importance === 9)
+    if (filter === '#1') {
+        workoutFilter = props.workout1Data.filter(m => m.isDone)
     }
-    if(filter === '#2'){
-        workoutFilter = props.workout1Data.filter(m => m.importance === 8)
+    if (filter === '#2') {
+        workoutFilter = props.workout1Data.filter(m => !m.isDone)
     }
-    if(filter === '#3'){
-        workoutFilter = props.workout1Data.filter(m => m.importance === 7)
+    if (filter === 'all') {
+        workoutFilter = props.workout1Data.filter(m => m)
     }
-    if(filter === 'all'){
-        workoutFilter = props.workout1Data.filter(m => m.importance)
-    }
-
 
 
     return (
         <div className={styles.block}>
             <h2>{props.workout1Title.title}</h2>
             <div>
+                <input value={newMessageTitle} onChange={onChangeHandler}/>
+                <button onClick={onClickAddHandler}>Add</button>
                 <ul>
                     {
-                        workoutFilter.map((w, index) => {
+                        workoutFilter.map((w) => {
+                            const onClickRemoveHandler = () => {
+                                props.onClickRemove(w.id)
+                            }
                             return (
-                                <li key={index}>
-                                    {w.case}
-                                    {w.importance}
-                                    {w.timeSpent}
-                                </li>
+                                <div key={w.id}>
+                                    <li>
+                                        {w.case}
+                                        {w.importance}
+                                        {w.timeSpent}
+                                    </li>
+                                    <input type="checkbox" checked={w.isDone}/>
+                                    <button onClick={onClickRemoveHandler}>Delete</button>
+                                </div>
                             )
                         })
                     }
                 </ul>
             </div>
-            <button onClick={()=>onclickFilterHandler('all')}>All</button>
-            <button onClick={()=>onclickFilterHandler('#1')}>#1</button>
-            <button onClick={()=>onclickFilterHandler('#2')}>#2</button>
-            <button onClick={()=>onclickFilterHandler('#3')}>#3</button>
+            <button onClick={() => onclickFilterHandler('all')}>All</button>
+            <button onClick={() => onclickFilterHandler('#1')}>#1</button>
+            <button onClick={() => onclickFilterHandler('#2')}>#2</button>
         </div>
     );
 };
