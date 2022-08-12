@@ -11,6 +11,7 @@ import {FilterTest} from './components/Filter/FilterTest';
 import Workout1, {WorkoutDataType} from './components/Workout1/Workout1';
 import {ButtonNew} from './components/ButtonNew/ButtonNew';
 import {v1} from 'uuid';
+import Counter from './components/Counter/Counter';
 
 
 function Button(props: { callBack: () => void, name: string }) {
@@ -141,6 +142,7 @@ function App() {
 
     return (
         <div className={styles.App}>
+            <Counter/>
             <ButtonNew callBackTB={callBackButtonHandler} name={'Add'}/>
            {/*<Input removeTask={removeTask} messageBT={messageBT} setTitle={setTitle} title={titleBT}/>*/}
             {/*<InputButton inputTitle={inputTitle} inputData={message} addMessage={addMessage}/>*/}
